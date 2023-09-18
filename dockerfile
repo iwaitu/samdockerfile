@@ -11,7 +11,14 @@ RUN apt-get install wget gcc g++ -y
 RUN apt-get install libsm6 libxext6 -y
 RUN apt-get update
 RUN apt-get install -y libgl1-mesa-glx
-RUN apt-get install libglib2.0-0 -y
+
+# 避免 debconf 报错
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装需要的软件包
+RUN apt-get update && apt-get install -y \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
 RUN wget \
     https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     && mkdir /root/.conda \
