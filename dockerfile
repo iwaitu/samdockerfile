@@ -26,8 +26,6 @@ RUN pip install git+https://github.com/facebookresearch/fvcore
 RUN pip install cython
 RUN pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
 RUN python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
-RUN git clone https://github.com/WongKinYiu/yolov7.git
-RUN pip install -r yolov7/requirements.txt
 
 RUN pip install git+https://github.com/facebookresearch/segment-anything.git
 RUN pip install -q git+https://github.com/huggingface/transformers.git
