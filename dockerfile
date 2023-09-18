@@ -42,10 +42,8 @@ RUN pip install scipy
 RUN pip install scikit-image
 RUN pip install scikit-learn
 RUN pip install tqdm
-RUN pip install matplotlib
 
-RUN pip install ipywidgets
-RUN pip install jupyterlab
+RUN pip install jupyterlab notebook
 RUN pip install matplotlib
 RUN jupyter nbextension enable --py widgetsnbextension
 ENV JUPYTER_TOKEN=123456
