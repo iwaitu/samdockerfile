@@ -45,6 +45,5 @@ RUN pip install tqdm
 
 RUN pip install jupyterlab notebook
 RUN pip install matplotlib
-RUN jupyter nbextension enable --py widgetsnbextension
 ENV JUPYTER_TOKEN=123456
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
