@@ -44,6 +44,7 @@ RUN pip install scikit-learn
 RUN pip install tqdm
 
 RUN pip install jupyterlab notebook
+RUN pip install jupyter-tensorboard
 RUN pip install matplotlib
 ENV JUPYTER_TOKEN=123456
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
