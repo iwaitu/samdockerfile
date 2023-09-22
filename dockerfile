@@ -42,9 +42,9 @@ RUN pip install scipy
 RUN pip install scikit-image
 RUN pip install scikit-learn
 RUN pip install tqdm
+RUN pip install tensorflow
 
 RUN pip install jupyterlab notebook
-RUN pip install tensorflow-gpu
 RUN pip install jupyter-tensorboard
 RUN pip install matplotlib
 ENV JUPYTER_TOKEN=123456
