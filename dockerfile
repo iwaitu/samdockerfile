@@ -45,7 +45,7 @@ RUN pip install tqdm
 RUN pip install tensorflow
 
 RUN pip install jupyterlab notebook
-RUN pip install jupyter-tensorboard
+# RUN pip install jupyter-tensorboard
 RUN pip install matplotlib
-ENV JUPYTER_TOKEN=123456
+ENV JUPYTER_TOKEN=nngeo.net
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
