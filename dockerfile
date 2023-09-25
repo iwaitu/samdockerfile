@@ -24,6 +24,8 @@ RUN wget \
     && mkdir /root/.conda \
     && bash Miniconda3-latest-Linux-x86_64.sh -b \
     && rm -f Miniconda3-latest-Linux-x86_64.sh 
+RUN mkdir -p /root/.cache/torch/hub/checkpoints
+RUN wget -P /root/.cache/torch/hub/checkpointsr https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-weights/tf_efficientnet_b7_aa-076e3472.pth
 RUN conda init && conda config --set always_yes yes --set changeps1 no
 RUN conda --version
 RUN pip install pycocotools
