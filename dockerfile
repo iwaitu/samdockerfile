@@ -50,4 +50,4 @@ RUN pip install jupyterlab notebook
 # RUN pip install jupyter-tensorboard
 RUN pip install matplotlib
 ENV JUPYTER_TOKEN=nngeo.net
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--notebook-dir=/root/workspace"]
