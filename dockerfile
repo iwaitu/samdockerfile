@@ -20,9 +20,6 @@ RUN apt-get update && apt-get install -y \
 RUN python -m venv /venv
 
 ENV JUPYTER_TOKEN=nngeo.net
-
-RUN chmod +x start-jupyter.sh
-
 COPY start-jupyter.sh /usr/local/bin/start-jupyter.sh
 RUN chmod +x /usr/local/bin/start-jupyter.sh
 CMD ["/usr/local/bin/start-jupyter.sh"]
