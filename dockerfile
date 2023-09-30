@@ -34,7 +34,7 @@ RUN pip install opencv-contrib-python -i https://pypi.tuna.tsinghua.edu.cn/simpl
 RUN pip install git+https://github.com/facebookresearch/fvcore
 RUN pip install cython
 RUN pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
-RUN python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+RUN pip install git+https://github.com/facebookresearch/detectron2.git
 
 RUN pip install git+https://github.com/facebookresearch/segment-anything.git
 RUN pip install -q git+https://github.com/huggingface/transformers.git
