@@ -19,15 +19,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
-RUN wget \
-    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && mkdir /root/.conda \
-    && bash Miniconda3-latest-Linux-x86_64.sh -b \
-    && rm -f Miniconda3-latest-Linux-x86_64.sh 
+
+
 RUN mkdir -p /root/.cache/torch/hub/checkpoints
 RUN wget -P /root/.cache/torch/hub/checkpointsr https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-weights/tf_efficientnet_b7_aa-076e3472.pth
-RUN conda init && conda config --set always_yes yes --set changeps1 no
-RUN conda --version
+
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
 RUN pip install pycocotools
 RUN pip install opencv-python
 RUN pip install opencv-contrib-python -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -47,16 +47,14 @@ RUN pip install tqdm
 RUN pip install tensorflow
 
 RUN pip install jupyterlab notebook
-RUN pip install jupyter-tensorboard
 RUN pip install --upgrade jupyter ipywidgets
 
 RUN pip install matplotlib
 
-RUN conda list
+#RUN COPY requirements.txt .
+#RUN pip install -r requirements.txt
 
 ENV JUPYTER_TOKEN=nngeo.net
 COPY start-jupyter.sh /usr/local/bin/start-jupyter.sh
 RUN chmod +x /usr/local/bin/start-jupyter.sh
 CMD ["/usr/local/bin/start-jupyter.sh"]
-
-COPY start-jupyter.sh /usr/local/bin/start-jupyter.sh
