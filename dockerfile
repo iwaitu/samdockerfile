@@ -26,37 +26,17 @@ RUN wget \
     && rm -f Miniconda3-latest-Linux-x86_64.sh 
 RUN mkdir -p /root/.cache/torch/hub/checkpoints
 RUN wget -P /root/.cache/torch/hub/checkpointsr https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-weights/tf_efficientnet_b7_aa-076e3472.pth
-RUN conda init && conda config --set always_yes yes --set changeps1 no
-RUN conda --version
-RUN pip install pycocotools
-RUN pip install opencv-python
-RUN pip install opencv-contrib-python -i https://pypi.tuna.tsinghua.edu.cn/simple
-RUN pip install git+https://github.com/facebookresearch/fvcore
-RUN pip install cython
-RUN pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
-RUN python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 
-RUN pip install git+https://github.com/facebookresearch/segment-anything.git
-RUN pip install -q git+https://github.com/huggingface/transformers.git
-RUN pip install datasets
-RUN pip install patchify
-RUN pip install scipy
-RUN pip install scikit-image
-RUN pip install scikit-learn
-RUN pip install tqdm
-RUN pip install tensorflow
+RUN /bin/bash -c "source /root/miniconda3/bin/activate && \
+    pip install pycocotools opencv-python opencv-contrib-python \
+    git+https://github.com/facebookresearch/fvcore \
+    cython git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI \
+    git+https://github.com/facebookresearch/detectron2.git \
+    git+https://github.com/facebookresearch/segment-anything.git \
+    git+https://github.com/huggingface/transformers.git \
+    datasets patchify scipy scikit-image scikit-learn tqdm tensorflow \
+    jupyterlab notebook matplotlib datasets patchify scipy scikit-image scikit-learn \
+    tqdm tensorflow jupyter-tensorboard matplotlib"
 
-RUN pip install --upgrade jupyter ipywidgets
-# RUN pip install jupyter-tensorboard
-
-RUN pip install matplotlib
 ENV JUPYTER_TOKEN=nngeo.net
-RUN chmod +x start-jupyter.sh
-
-# 复制 start-jupyter.sh 到容器中
-COPY start-jupyter.sh /usr/local/bin/start-jupyter.sh
-
-
-
-# 更新 CMD 指令以运行新的脚本
-CMD ["/usr/local/bin/start-jupyter.sh"]
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--notebook-dir=/root/workspace"]
