@@ -17,7 +17,10 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx
 
 # 创建Python虚拟环境
-RUN python -m venv /venv
+RUN python -m venv /root/venv
+
+COPY requirements.txt .
+RUN . /root/venv/bin/activate && pip install -r requirements.txt
 
 ENV JUPYTER_TOKEN=nngeo.net
 COPY start-jupyter.sh /usr/local/bin/start-jupyter.sh
