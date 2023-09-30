@@ -24,7 +24,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN pip install git+https://github.com/facebookresearch/fvcore
 RUN pip install cython
 RUN pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
-RUN pip install git+https://github.com/facebookresearch/detectron2.git
+#RUN pip install git+https://github.com/facebookresearch/detectron2.git
 RUN pip install git+https://github.com/facebookresearch/segment-anything.git
 RUN pip install git+https://github.com/huggingface/transformers.git
 
