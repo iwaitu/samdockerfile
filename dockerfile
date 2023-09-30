@@ -24,10 +24,16 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /root/.cache/torch/hub/checkpoints
 RUN wget -P /root/.cache/torch/hub/checkpointsr https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-weights/tf_efficientnet_b7_aa-076e3472.pth
 
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && mkdir /root/.conda \
+    && bash Miniconda3-latest-Linux-x86_64.sh -b \
+    && rm -f Miniconda3-latest-Linux-x86_64.sh
 
+RUN conda init && conda config --set always_yes yes --set changeps1 no
+RUN conda --version
+
+RUN pip install --upgrade pip
 RUN pip install pycocotools
 RUN pip install opencv-python
 RUN pip install opencv-contrib-python -i https://pypi.tuna.tsinghua.edu.cn/simple
