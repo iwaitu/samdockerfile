@@ -1,42 +1,48 @@
-FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
+# 使用官方的PyTorch镜像作为基础镜像
+FROM pytorch/pytorch:1.9.0-cuda11.1-cudnn8-runtime
 
+# 暴露Jupyter Lab需要的端口
 EXPOSE 8888
 
-
+# 更新系统并安装必要的工具
 RUN apt-get update && apt-get install -y \
     apt-utils \
     vim \
-    git 
-RUN apt-get install wget gcc g++ -y
-RUN apt-get install libsm6 libxext6 -y
-RUN apt-get update
-RUN apt-get install -y libgl1-mesa-glx
+    git \
+    wget \
+    gcc \
+    g++ \
+    libsm6 \
+    libxext6 \
+    libgl1-mesa-glx
 
-# 避免 debconf 报错
-ENV DEBIAN_FRONTEND=noninteractive
+# 创建Python虚拟环境
+RUN python -m venv /venv
 
-# 安装需要的软件包
-RUN apt-get update && apt-get install -y \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
-RUN wget \
-    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && mkdir /root/.conda \
-    && bash Miniconda3-latest-Linux-x86_64.sh -b \
-    && rm -f Miniconda3-latest-Linux-x86_64.sh 
-RUN mkdir -p /root/.cache/torch/hub/checkpoints
-RUN wget -P /root/.cache/torch/hub/checkpointsr https://github.com/huggingface/pytorch-image-models/releases/download/v0.1-weights/tf_efficientnet_b7_aa-076e3472.pth
-
-RUN /bin/bash -c "source /root/miniconda3/bin/activate && \
-    pip install pycocotools opencv-python opencv-contrib-python \
+# 激活虚拟环境并安装必要的Python包
+RUN /bin/bash -c "source /venv/bin/activate && \
+    pip install --no-cache-dir \
+    pycocotools \
+    opencv-python \
+    opencv-contrib-python \
     git+https://github.com/facebookresearch/fvcore \
-    cython git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI \
+    cython \
+    git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI \
     git+https://github.com/facebookresearch/detectron2.git \
     git+https://github.com/facebookresearch/segment-anything.git \
     git+https://github.com/huggingface/transformers.git \
-    datasets patchify scipy scikit-image scikit-learn tqdm tensorflow \
-    jupyterlab notebook matplotlib datasets patchify scipy scikit-image scikit-learn \
-    tqdm tensorflow jupyter-tensorboard matplotlib"
+    datasets \
+    patchify \
+    scipy \
+    scikit-image \
+    scikit-learn \
+    tqdm \
+    tensorflow \
+    jupyterlab \
+    notebook \
+    matplotlib"
 
+# 设置Jupyter Lab的启动命令
 ENV JUPYTER_TOKEN=nngeo.net
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--notebook-dir=/root/workspace"]
+CMD ["/bin/bash", "-c", "source /venv/bin/activate && jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --no-browser --notebook-dir=/root/workspace"]
+
