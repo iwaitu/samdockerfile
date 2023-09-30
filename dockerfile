@@ -48,6 +48,12 @@ RUN pip install tensorflow
 
 RUN pip install jupyterlab notebook
 # RUN pip install jupyter-tensorboard
+
 RUN pip install matplotlib
 ENV JUPYTER_TOKEN=nngeo.net
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser", "--notebook-dir=/root/workspace"]
+
+# 复制 start-jupyter.sh 到容器中
+COPY start-jupyter.sh /usr/local/bin/start-jupyter.sh
+
+# 更新 CMD 指令以运行新的脚本
+CMD ["/usr/local/bin/start-jupyter.sh"]
