@@ -46,7 +46,7 @@ RUN pip install scikit-learn
 RUN pip install tqdm
 RUN pip install tensorflow
 
-RUN pip install jupyterlab notebook
+RUN pip install --upgrade jupyter ipywidgets
 # RUN pip install jupyter-tensorboard
 
 RUN pip install matplotlib
