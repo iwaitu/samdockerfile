@@ -51,6 +51,7 @@ RUN pip install scikit-image
 RUN pip install scikit-learn
 RUN pip install tqdm
 RUN pip install tensorflow
+RUN pip install albumentations
 
 RUN pip install jupyterlab notebook
 RUN pip install --upgrade jupyter ipywidgets
