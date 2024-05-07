@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-devel
+FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
 
 EXPOSE 8888
 
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     git 
 RUN apt-get install wget gcc g++ -y
 RUN apt-get install libsm6 libxext6 -y
-RUN apt-get update
+#RUN apt-get update
 RUN apt-get install -y libgl1-mesa-glx
 
 # 避免 debconf 报错
